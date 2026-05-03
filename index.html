@@ -3,520 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Modern Kişisel Portfolyo</title>
-    <!-- Font Awesome güncel sürüm (X ve Facebook ikonu desteği için 6.5.2) -->
+    <title>Yükleniyor...</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #a855f7;
-            --bg: #0f172a;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --input-bg: rgba(15, 23, 42, 0.6);
+            --primary: #6366f1; --secondary: #a855f7; --bg: #0f172a; --text: #f1f5f9;
+            --muted: #94a3b8; --card-bg: rgba(30, 41, 59, 0.7);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            padding-bottom: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg);
+            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            color: var(--text); line-height: 1.6; overflow-x: hidden; padding-bottom: 50px;
         }
-
-        /* Sağ Sabit Sosyal Medya Çubuğu */
-        .social-sidebar {
-            position: fixed;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999;
         }
-
-        .social-sidebar a {
-            width: 46px;
-            height: 46px;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .social-sidebar a:hover {
-            transform: scale(1.1);
-            background: var(--primary);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        /* İletişim İkonları Özel Renkler */
-        .social-sidebar a.whatsapp:hover { background: #25D366; }
-        .social-sidebar a.phone:hover { background: #3b82f6; }
-        .social-sidebar a.facebook:hover { background: #1877F2; }
-        .social-sidebar a.instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .social-sidebar a.tiktok:hover { background: #000000; }
-        .social-sidebar a.x-twitter:hover { background: #000000; border-color: rgba(255,255,255,0.3); }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-            width: 100%;
-        }
-
-        header {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .profile-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
-
-        .profile-img {
-            width: clamp(140px, 30vw, 180px);
-            height: clamp(140px, 30vw, 180px);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            object-fit: cover;
-            border: 4px solid var(--primary);
-            animation: morph 8s ease-in-out infinite;
-        }
-
-        @keyframes morph {
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        }
-
-        h1 {
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            font-weight: 800;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .tagline {
-            color: var(--muted);
-            font-size: clamp(1rem, 4vw, 1.3rem);
-        }
-
-        section {
-            margin-top: clamp(3rem, 10vw, 6rem);
-            width: 100%;
-        }
-
-        .section-title {
-            font-size: clamp(1.4rem, 5vw, 1.8rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-title::after {
-            content: "";
-            height: 2px;
-            flex: 1;
-            background: linear-gradient(to right, var(--primary), transparent);
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: clamp(1.5rem, 5vw, 2.5rem);
-            border-radius: 1.5rem;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            width: 100%;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.2rem;
-            width: 100%;
-        }
-
-        .service-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 1.5rem;
-            border-radius: 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .service-item i {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .service-item h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .service-item p {
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
-        .service-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .contact-info-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 2rem;
-            width: 100%;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .info-item i {
-            margin-top: 4px;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .info-item h4 {
-            font-size: 0.95rem;
-            margin-bottom: 2px;
-        }
-
-        .info-item p {
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
-        .contact-form {
-            display: grid;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin-left: 0.3rem;
-        }
-
-        input, textarea {
-            background: var(--input-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.9rem;
-            border-radius: 0.8rem;
-            color: white;
-            font-family: inherit;
-            outline: none;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        input:focus, textarea:focus {
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.05);
-        }
-
-        .submit-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 0.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-
-        footer {
-            text-align: center;
-            padding: 5rem 1rem 3rem;
-            color: var(--text);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 5rem;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-powered {
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .agt-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 800;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .agt-link:hover {
-            color: var(--secondary);
-            transform: translateY(-2px);
-            text-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem 0.75rem;
-                max-width: 100%;
-            }
-
-            .contact-info-wrapper {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 1.5rem 1rem;
-                border-radius: 1.25rem;
-                margin-bottom: 1rem;
-            }
-
-            body {
-                padding-bottom: 100px;
-            }
-
-            .social-sidebar {
-                right: 10px;
-                gap: 8px;
-            }
-
-            .social-sidebar a {
-                width: 42px;
-                height: 42px;
-                font-size: 1.1rem;
-                background: rgba(15, 23, 42, 0.95);
-                border-radius: 10px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            footer {
-                padding-bottom: 4rem;
-            }
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; width: 100%; display: none; }
+        .social-sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .social-sidebar a { width: 46px; height: 46px; background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
+        .social-sidebar a:hover { transform: scale(1.1); background: var(--primary); }
+        header { text-align: center; padding: 3rem 0; }
+        .profile-img { width: 160px; height: 160px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; object-fit: cover; border: 4px solid var(--primary); animation: morph 8s ease-in-out infinite; }
+        @keyframes morph { 0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; } 50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; } }
+        h1 { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 800; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin: 2rem 0 1rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ""; height: 2px; flex: 1; background: linear-gradient(to right, var(--primary), transparent); }
+        .card { background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 1.5rem; backdrop-filter: blur(12px); margin-bottom: 2rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+        .service-item { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 1.2rem; border: 1px solid rgba(255,255,255,0.05); }
+        footer { text-align: center; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; }
+        .agt-link { color: var(--primary); text-decoration: none; font-weight: 800; transition: 0.3s; }
+        .agt-link:hover { color: var(--secondary); }
+        @media (max-width: 768px) { .container { padding: 1rem 0.75rem; } .social-sidebar { right: 5px; } }
     </style>
 </head>
 <body>
-
-    <!-- Sosyal Medya Sidebar -->
-    <div class="social-sidebar">
-        <a href="https://wa.me/908503351004" class="whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="tel:08503351004" class="phone" title="Hemen Ara"><i class="fa-solid fa-phone"></i></a>
-        <a href="https://facebook.com" class="facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://instagram.com" class="instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://tiktok.com" class="tiktok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://twitter.com" class="x-twitter" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+    <div id="loading-screen">
+        <i class="fas fa-circle-notch fa-spin fa-3x" style="color: var(--primary); margin-bottom: 20px;"></i>
+        <p>İçerik yükleniyor...</p>
     </div>
 
-    <div class="container">
+    <div class="social-sidebar" id="social-links"></div>
+
+    <div class="container" id="main-content">
         <header>
             <div class="profile-container">
-                <img src="https://i.ibb.co/PvqyG4Hz/agtlogopng.jpg" alt="Profil Fotoğrafı" class="profile-img">
+                <img id="v-img" src="" class="profile-img" alt="Profil">
             </div>
-            <h1>Agt Dijital</h1>
-            <p class="tagline">Kurumsal-Posta Bio Site Hediye Demo Sayfası</p>
+            <h1 id="v-name">...</h1>
+            <p id="v-tagline" class="tagline">...</p>
         </header>
 
         <section id="hakkimda">
             <h2 class="section-title">Hakkımda</h2>
-            <div class="card">
-                <p>
-                    Merhaba! Ben Agt Dijital. Dijital dünyada iz bırakan projeler geliştirmeyi seviyorum. 
-                    Kullanıcı deneyimini odağına alan, estetik ve fonksiyonel çözümler sunarak işletmelerin 
-                    dijital kimliklerini güçlendiriyorum.
-                </p>
-            </div>
+            <div class="card"><p id="v-about">...</p></div>
         </section>
 
         <section id="hizmetler">
             <h2 class="section-title">Hizmetler</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <i class="fas fa-code"></i>
-                    <h3>Web Geliştirme</h3>
-                    <p>Modern ve hızlı web siteleri, kurumsal landing sayfaları.</p>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>UI/UX Tasarım</h3>
-                    <p>Kullanıcı odaklı, şık ve modern arayüz tasarımları.</p>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Dijital Pazarlama</h3>
-                    <p>Sosyal medya yönetimi ve marka bilinirliği stratejileri.</p>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Mobil Çözümler</h3>
-                    <p>Tüm cihazlarla uyumlu mobil öncelikli deneyimler.</p>
-                </div>
-            </div>
+            <div class="services-grid" id="v-services"></div>
         </section>
 
         <section id="iletisim">
             <h2 class="section-title">Bana Ulaşın</h2>
             <div class="card">
-                <div class="contact-info-wrapper">
-                    <div class="contact-info">
-                        <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4>Adres</h4>
-                                <p>Turgut Reis, Kayseri / Türkiye</p>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>E-posta</h4>
-                                <p>hello@agtdijital.com</p>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <h4>Çalışma Saatleri</h4>
-                                <p>Pzt - Cum: 09:00 - 18:00</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-group">
-                            <label>Adınız Soyadınız</label>
-                            <input type="text" name="name" placeholder="Örn: Ahmet Yılmaz" required>
-                        </div>
-                        <div class="form-group">
-                            <label>E-posta Adresiniz</label>
-                            <input type="email" name="email" placeholder="email@ornek.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Mesajınız</label>
-                            <textarea name="message" rows="4" placeholder="Size nasıl yardımcı olabilirim?" required></textarea>
-                        </div>
-                        <button type="submit" id="submit-btn" class="submit-btn">
-                            <span>Mesaj Gönder</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                        <p id="response-msg" style="margin-top: 10px; font-size: 0.9rem; text-align: center; display: none;"></p>
-                    </form>
-                </div>
+                <p id="v-address" style="margin-bottom: 10px;">📍 ...</p>
+                <p id="v-email">📧 ...</p>
             </div>
         </section>
 
         <footer>
-            <p style="margin-bottom: 10px; opacity: 0.8;">&copy; 2026 Agt Dijital. Tüm Hakları Saklıdır.</p>
-            <div class="footer-powered">
-                <span style="opacity: 0.7; font-weight: 400;">Powered By</span>
-                <a href="https://www.agtdijital.com" target="_blank" class="agt-link">
-                    Agt Dijital
-                </a>
-            </div>
+            <p id="v-copy">&copy; 2024. Tüm Hakları Saklıdır.</p>
+            <div style="margin-top:10px">Powered By <a href="https://www.agtdijital.com" target="_blank" class="agt-link">Agt Dijital</a></div>
         </footer>
     </div>
 
-    <script>
-        const form = document.getElementById('contact-form');
-        const btn = document.getElementById('submit-btn');
-        const msg = document.getElementById('response-msg');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxeeDaBu9ZxwM6415Q9fW3rkwZi5oI2fu6G3ZjLff98TTQZ3H8NlF2kkT7glmf6IPg/exec";
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3Bv4cNEkNtuUAp27YZL6h6XGU6zTRoc4",
+            authDomain: "admin-8f08d.firebaseapp.com",
+            databaseURL: "https://admin-8f08d-default-rtdb.firebaseio.com",
+            projectId: "admin-8f08d",
+            storageBucket: "admin-8f08d.firebasestorage.app",
+            messagingSenderId: "122866337939",
+            appId: "1:122866337939:web:21977ee6e11feb7b7aa566",
+            measurementId: "G-NC7Z1PZE9L"
+        };
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.querySelector('span').innerText = "Gönderiliyor...";
-            msg.style.display = "none";
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-            const formData = new FormData(form);
-            
-            fetch(SCRIPT_URL, { method: 'POST', body: formData })
-                .then(response => {
-                    btn.disabled = false;
-                    btn.querySelector('span').innerText = "Mesaj Gönder";
-                    msg.innerText = "Mesajınız başarıyla gönderildi!";
-                    msg.style.color = "#4ade80";
-                    msg.style.display = "block";
-                    form.reset();
-                })
-                .catch(error => {
-                    btn.disabled = false;
-                    btn.querySelector('span').innerText = "Mesaj Gönder";
-                    msg.innerText = "Bir hata oluştu. Lütfen tekrar deneyin.";
-                    msg.style.color = "#f87171";
-                    msg.style.display = "block";
-                    console.error('Error!', error.message);
-                });
-        });
+        async function init() {
+            try {
+                // 'content' dökümanını 'bio-data' koleksiyonundan çekiyoruz
+                const docRef = doc(db, 'bio-data', 'main-content');
+                const snap = await getDoc(docRef);
+
+                if (snap.exists()) {
+                    const data = snap.data();
+                    document.getElementById('v-img').src = data.profileImg || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop';
+                    document.getElementById('v-name').innerText = data.name;
+                    document.getElementById('v-tagline').innerText = data.tagline;
+                    document.getElementById('v-about').innerText = data.about;
+                    document.getElementById('v-address').innerText = "📍 " + (data.address || "Belirtilmemiş");
+                    document.getElementById('v-email').innerText = "📧 " + (data.email || "Belirtilmemiş");
+                    document.getElementById('v-copy').innerText = `© ${new Date().getFullYear()} ${data.name}. Tüm Hakları Saklıdır.`;
+
+                    // Hizmetler
+                    const sGrid = document.getElementById('v-services');
+                    sGrid.innerHTML = (data.services || []).map(s => `
+                        <div class="service-item">
+                            <i class="${s.icon} fa-2x" style="color: var(--primary); margin-bottom: 15px; display: block;"></i>
+                            <h3>${s.title}</h3>
+                            <p style="font-size: 0.9rem; color: var(--muted); margin-top:5px;">${s.desc}</p>
+                        </div>
+                    `).join('');
+
+                    // Sosyal Linkler
+                    const socialMap = {
+                        whatsapp: 'fa-whatsapp', phone: 'fa-phone', facebook: 'fa-facebook-f',
+                        instagram: 'fa-instagram', tiktok: 'fa-tiktok', x: 'fa-x-twitter'
+                    };
+                    const sidebar = document.getElementById('social-links');
+                    sidebar.innerHTML = Object.entries(data.social || {}).map(([key, val]) => {
+                        if(!val) return '';
+                        return `<a href="${val}" target="_blank" title="${key}"><i class="fa-brands ${socialMap[key] || 'fa-link'}"></i></a>`;
+                    }).join('');
+
+                    document.getElementById('loading-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                } else {
+                    document.body.innerHTML = "<div style='text-align:center; padding:50px;'>Veritabanında veri bulunamadı. Lütfen önce Admin panelinden veri kaydedin.</div>";
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Veritabanı bağlantı hatası!");
+            }
+        }
+        window.onload = init;
     </script>
 </body>
-  </html>
+</html>                   
