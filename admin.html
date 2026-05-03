@@ -3,194 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Biyografi Yönetimi</title>
+    <title>Gelişmiş Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #6366f1; --bg: #f1f5f9; --text: #0f172a; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); padding: 20px; color: var(--text); }
-        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
-        h2 { text-align: center; color: var(--primary); margin-bottom: 25px; font-weight: 800; }
+        :root { --primary: #6366f1; --bg: #f1f5f9; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); padding: 20px; color: #0f172a; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: #64748b; }
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-family: inherit; font-size: 0.95rem; }
-        input:focus { outline: none; border-color: var(--primary); }
-        .btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .btn:hover { background: #4f46e5; transform: translateY(-2px); }
-        .logout { background: #ef4444; margin-top: 30px; }
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        #admin-content { display: none; }
-        .status { text-align: center; font-size: 0.8rem; margin-top: 10px; }
+        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: #64748b; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: inherit; }
+        .btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .service-box { background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px dashed #cbd5e1; position: relative; }
+        .remove-service { position: absolute; right: 10px; top: 10px; color: #ef4444; cursor: pointer; }
+        #admin-ui { display: none; }
     </style>
 </head>
 <body>
-
-    <!-- Giriş Bölümü -->
-    <div class="container" id="login-box">
-        <h2>Admin Girişi</h2>
-        <form id="login-form">
-            <div class="form-group">
-                <label>E-posta</label>
-                <input type="email" id="email" placeholder="admin@example.com" required>
-            </div>
-            <div class="form-group">
-                <label>Şifre</label>
-                <input type="password" id="password" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn">Giriş Yap</button>
-        </form>
+    <div class="container" id="login-ui">
+        <h2 style="text-align:center">Admin Girişi</h2>
+        <input type="email" id="email" placeholder="E-posta" style="margin-top:15px"><br>
+        <input type="password" id="pass" placeholder="Şifre" style="margin-top:10px"><br>
+        <button class="btn" onclick="login()">Giriş Yap</button>
     </div>
 
-    <!-- Yönetim Bölümü -->
-    <div class="container" id="admin-content">
-        <h2>Verileri Güncelle</h2>
-        <form id="update-form">
-            <div class="form-group">
-                <label>Profil Resim URL</label>
-                <input type="text" id="p-img" placeholder="https://...">
-            </div>
-            <div class="form-group">
-                <label>Ad Soyad</label>
-                <input type="text" id="p-name" required>
-            </div>
-            <div class="form-group">
-                <label>Unvan (Tagline)</label>
-                <input type="text" id="p-tagline" required>
-            </div>
-            <div class="form-group">
-                <label>Hakkımda</label>
-                <textarea id="p-about" rows="4" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>İletişim Adresi</label>
-                <input type="text" id="p-address">
-            </div>
-            <div class="form-group">
-                <label>Görünen E-posta</label>
-                <input type="email" id="p-email">
-            </div>
+    <div class="container" id="admin-ui">
+        <h2>İçerik Yönetimi</h2>
+        <div class="form-group"><label>Profil Resim URL</label><input type="text" id="p-img"></div>
+        <div class="form-group"><label>Ad Soyad</label><input type="text" id="p-name"></div>
+        <div class="form-group"><label>Unvan</label><input type="text" id="p-tagline"></div>
+        <div class="form-group"><label>Hakkımda</label><textarea id="p-about" rows="3"></textarea></div>
+        <div class="form-group"><label>Adres</label><input type="text" id="p-addr"></div>
+        <div class="form-group"><label>E-posta</label><input type="text" id="p-mail"></div>
 
-            <h3 style="margin: 20px 0 10px; font-size: 1rem;">Sosyal Medya Bağlantıları</h3>
-            <div class="social-grid">
-                <div class="form-group"><label>WhatsApp (90...)</label><input type="text" id="s-wa"></div>
-                <div class="form-group"><label>Telefon</label><input type="text" id="s-tel"></div>
-                <div class="form-group"><label>Instagram</label><input type="text" id="s-ig"></div>
-                <div class="form-group"><label>Facebook</label><input type="text" id="s-fb"></div>
-                <div class="form-group"><label>TikTok</label><input type="text" id="s-tt"></div>
-                <div class="form-group"><label>X (Twitter)</label><input type="text" id="s-x"></div>
-            </div>
+        <h3>Hizmetler</h3>
+        <div id="services-list"></div>
+        <button class="btn" style="background:#10b981" onclick="addService()">+ Yeni Hizmet Ekle</button>
 
-            <button type="submit" id="save-btn" class="btn">Değişiklikleri Kaydet</button>
-        </form>
-        <button id="logout-btn" class="btn logout">Oturumu Kapat</button>
-        <div id="status-msg" class="status"></div>
+        <h3 style="margin-top:20px">Sosyal Medya (URL)</h3>
+        <div class="form-group"><label>WhatsApp (Link)</label><input type="text" id="s-wa"></div>
+        <div class="form-group"><label>Instagram</label><input type="text" id="s-ig"></div>
+        <div class="form-group"><label>Facebook</label><input type="text" id="s-fb"></div>
+        <div class="form-group"><label>TikTok</label><input type="text" id="s-tt"></div>
+        <div class="form-group"><label>X</label><input type="text" id="s-x"></div>
+
+        <button class="btn" onclick="saveData()">Tüm Verileri Kaydet</button>
+        <button class="btn" style="background:#ef4444" onclick="logout()">Çıkış Yap</button>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyB3Bv4cNEkNtuUAp27YZL6h6XGU6zTRoc4",
-            authDomain: "admin-8f08d.firebaseapp.com",
-            databaseURL: "https://admin-8f08d-default-rtdb.firebaseio.com",
-            projectId: "admin-8f08d",
-            storageBucket: "admin-8f08d.firebasestorage.app",
-            messagingSenderId: "122866337939",
-            appId: "1:122866337939:web:21977ee6e11feb7b7aa566",
-            measurementId: "G-NC7Z1PZE9L"
-        };
-
+        const firebaseConfig = { apiKey: "AIzaSyB3Bv4cNEkNtuUAp27YZL6h6XGU6zTRoc4", authDomain: "admin-8f08d.firebaseapp.com", projectId: "admin-8f08d", storageBucket: "admin-8f08d.firebasestorage.app", messagingSenderId: "122866337939", appId: "1:122866337939:web:21977ee6e11feb7b7aa566" };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Giriş Kontrolü
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                document.getElementById('login-box').style.display = 'none';
-                document.getElementById('admin-content').style.display = 'block';
-                loadData();
-            } else {
-                document.getElementById('login-box').style.display = 'block';
-                document.getElementById('admin-content').style.display = 'none';
-            }
+        window.login = () => {
+            signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('pass').value).catch(e => alert("Hata!"));
+        };
+
+        window.logout = () => signOut(auth);
+
+        onAuthStateChanged(auth, user => {
+            document.getElementById('login-ui').style.display = user ? 'none' : 'block';
+            document.getElementById('admin-ui').style.display = user ? 'block' : 'none';
+            if(user) loadData();
         });
 
-        // Veri Yükle
+        window.addService = (title = '', desc = '', icon = 'fas fa-star') => {
+            const div = document.createElement('div');
+            div.className = 'service-box';
+            div.innerHTML = `<i class="fas fa-trash remove-service" onclick="this.parentElement.remove()"></i>
+                <label>İkon (FontAwesome)</label><input type="text" class="s-icon" value="${icon}">
+                <label>Başlık</label><input type="text" class="s-title" value="${title}">
+                <label>Açıklama</label><input type="text" class="s-desc" value="${desc}">`;
+            document.getElementById('services-list').appendChild(div);
+        };
+
         async function loadData() {
             const snap = await getDoc(doc(db, 'bio-data', 'main-content'));
-            if (snap.exists()) {
+            if(snap.exists()){
                 const d = snap.data();
                 document.getElementById('p-img').value = d.profileImg || '';
                 document.getElementById('p-name').value = d.name || '';
                 document.getElementById('p-tagline').value = d.tagline || '';
                 document.getElementById('p-about').value = d.about || '';
-                document.getElementById('p-address').value = d.address || '';
-                document.getElementById('p-email').value = d.email || '';
-                document.getElementById('s-wa').value = (d.social?.whatsapp || '').replace('https://wa.me/', '');
-                document.getElementById('s-tel').value = (d.social?.phone || '').replace('tel:', '');
+                document.getElementById('p-addr').value = d.address || '';
+                document.getElementById('p-mail').value = d.email || '';
+                document.getElementById('s-wa').value = d.social?.whatsapp || '';
                 document.getElementById('s-ig').value = d.social?.instagram || '';
                 document.getElementById('s-fb').value = d.social?.facebook || '';
                 document.getElementById('s-tt').value = d.social?.tiktok || '';
                 document.getElementById('s-x').value = d.social?.x || '';
+                document.getElementById('services-list').innerHTML = '';
+                (d.services || []).forEach(s => window.addService(s.title, s.desc, s.icon));
             }
         }
 
-        // Giriş Yap
-        document.getElementById('login-form').addEventListener('submit', e => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            signInWithEmailAndPassword(auth, email, pass).catch(err => alert("Giriş Hatalı: " + err.message));
-        });
-
-        // Veri Kaydet
-        document.getElementById('update-form').addEventListener('submit', async e => {
-            e.preventDefault();
-            const btn = document.getElementById('save-btn');
-            const msg = document.getElementById('status-msg');
-            btn.disabled = true;
-            btn.innerText = "Kaydediliyor...";
-
-            const newData = {
+        window.saveData = async () => {
+            const services = Array.from(document.querySelectorAll('.service-box')).map(box => ({
+                title: box.querySelector('.s-title').value,
+                desc: box.querySelector('.s-desc').value,
+                icon: box.querySelector('.s-icon').value
+            }));
+            const data = {
                 profileImg: document.getElementById('p-img').value,
                 name: document.getElementById('p-name').value,
                 tagline: document.getElementById('p-tagline').value,
                 about: document.getElementById('p-about').value,
-                address: document.getElementById('p-address').value,
-                email: document.getElementById('p-email').value,
+                address: document.getElementById('p-addr').value,
+                email: document.getElementById('p-mail').value,
+                services: services,
                 social: {
-                    whatsapp: document.getElementById('s-wa').value ? "https://wa.me/" + document.getElementById('s-wa').value : "",
-                    phone: document.getElementById('s-tel').value ? "tel:" + document.getElementById('s-tel').value : "",
+                    whatsapp: document.getElementById('s-wa').value,
                     instagram: document.getElementById('s-ig').value,
                     facebook: document.getElementById('s-fb').value,
                     tiktok: document.getElementById('s-tt').value,
                     x: document.getElementById('s-x').value
-                },
-                // Varsayılan hizmetler (Burayı da manuel ekleyebilirsin veya koddan yönetebilirsin)
-                services: [
-                    { title: "Web Tasarım", desc: "Modern ve şık web siteleri.", icon: "fas fa-code" },
-                    { title: "Dijital Pazarlama", desc: "Markanızı büyüten stratejiler.", icon: "fas fa-chart-line" },
-                    { title: "Mobil Uygulama", desc: "iOS ve Android çözümleri.", icon: "fas fa-mobile-alt" },
-                    { title: "UI/UX Tasarım", desc: "Kullanıcı odaklı arayüzler.", icon: "fas fa-paint-brush" }
-                ]
+                }
             };
-
-            try {
-                await setDoc(doc(db, 'bio-data', 'main-content'), newData);
-                msg.innerText = "Başarıyla güncellendi!";
-                msg.style.color = "green";
-            } catch (err) {
-                alert("Hata: " + err.message);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "Değişiklikleri Kaydet";
-            }
-        });
-
-        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+            await setDoc(doc(db, 'bio-data', 'main-content'), data);
+            alert("Tüm veriler kaydedildi!");
+        };
     </script>
 </body>
 </html>
